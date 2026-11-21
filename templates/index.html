@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{# Substitui o titulo padrao do layout pelo titulo da pagina inicial. #}
+{% block title %}Goku | Dragon Ball{% endblock %}
+
+{# Carrega o CSS exclusivo da pagina inicial dentro do head do layout. #}
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+{% endblock %}
+
+{# Define o conteudo principal da pagina sobre o Goku. #}
+{% block content %}
+    <main>
+      <aside class="lateral">
+        <img class="goku" src="{{ url_for('static', filename='img/Goku.png') }}" alt="Goku" />
+      </aside>
+
+      <div class="central">
+        <section class="sessao">
+            <h2>Son Goku</h2>
+            <hr />
+            <p class="texto">
+              Goku é um lutador Saiyajin criado por Akira Toriyama que busca evoluir
+              constantemente através de treinos intensos e batalhas contra inimigos cada
+              vez mais poderosos. Apesar de sua força descomunal, mantém um espírito
+              ingênuo e alegre, sempre disposto a proteger seus amigos, sua família e a
+              Terra, o planeta que passou a chamar de lar.
+            </p>
+        </section>
+
+        <section class="sessao">
+          <h2>Principais poderes</h2>
+          <hr />
+          <ul>
+            <li class="texto">Kamehameha — sua técnica de energia mais famosa, criada pelo Mestre Kame</li>
+            <li class="texto">Teletransporte — habilidade aprendida com os Yardrats que permite se mover instantaneamente até qualquer ki que sinta</li>
+            <li class="texto">Transformações Saiyajin — do Super Saiyajin ao Ultra Instinto, cada forma eleva drasticamente seu poder de combate</li>
+            <li class="texto">Kamehameha x10 e Genki Dama — variações e técnicas avançadas usadas em batalhas decisivas</li>
+          </ul>
+        </section>
+
+        <section class="sessao">
+          <h2>Curiosidade</h2>
+          <hr />
+          <p class="texto">
+            Seu nome Saiyajin é Kakarotto. Ele foi enviado à Terra ainda bebê para
+            conquistar o planeta, mas uma queda de cabeça na infância apagou sua memória
+            e, com ela, seus instintos violentos — o que o transformou no herói bondoso
+            que conhecemos hoje.
+          </p>
+        </section>
+      </div>
+    </main>
+{% endblock %}

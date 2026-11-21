@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+
+    {# Bloco para cada pagina adicionar seu proprio arquivo CSS. #}
+    {% block styles %}{% endblock %}
+
+    {# Bloco para definir o titulo especifico da pagina no navegador. #}
+    <title>{% block title %}Dragon Ball{% endblock %}</title>
+  </head>
+
+  <body>
+    <header>
+      <img src="{{ url_for('static', filename='img/Logo_DB-removebg-preview.png') }}" class="logo" alt="Logo Dragon Ball" />
+      <nav aria-label="Navegacao principal">
+        <ul>
+          <li><a class="nav-link" href="{{ url_for('home') }}">Goku</a></li>
+          <li><a class="nav-link" href="{{ url_for('transformacoes') }}">Transformações</a></li>
+          <li><a class="nav-link" href="{{ url_for('esferas') }}">Esferas</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    {# Bloco onde entra o conteudo principal de cada pagina. #}
+    {% block content %}{% endblock %}
+
+    <footer>
+      <p>&copy; 2026 - Pagina de estudos de Desenvolvimento Web.</p>
+    </footer>
+
+    {# Bloco para adicionar scripts especificos de cada pagina. #}
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

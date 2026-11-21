@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{# Substitui o titulo padrao pelo titulo da pagina das Esferas do Dragao. #}
+{% block title %}Esferas do Dragão | Dragon Ball{% endblock %}
+
+{# Carrega o CSS exclusivo da pagina das Esferas dentro do head do layout. #}
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/esferas.css') }}" />
+{% endblock %}
+
+{# Define o conteudo principal da pagina das Esferas do Dragao. #}
+{% block content %}
+    <main class="principal">
+      
+      <div class="fundo"> <!-- aqui eu crio meu fundo -->
+        <img id="gifShenlong" class="media" src="{{ url_for('static', filename='img/summon-dragon.gif') }}"/>
+         <!-- meu giff que sera reproduzido primeiro -->
+
+        <video src="{{ url_for('static', filename='img/202609011410.mp4') }}" id="loopShenlong" class="media" autoplay loop> 
+          <!-- aqui eu ja defino alguns comportamentos do meu video
+          como começar e repetir automaticamente-->
+        </video>
+      </div>
+
+      <button id="btnInvocar" type="button" class="btn_invocar">Invocar Shenlong</button>
+
+    <div id="formPedido" class="invisivel"> <!-- aqui eu crio a caixa onde meu formulario fica -->
+      <form class="formulario">
+        <input class="campo" id="pedido" name="pedido" placeholder="Me diga seu desejo !"></input>
+        <button class="btn_enviar" type="submit">Enviar pedido</button>
+      </form>
+    </div>
+
+    </main>
+{% endblock %}
+
+{# Carrega o JavaScript usado para invocar Shenlong nesta pagina. #}
+{% block scripts %}
+  <script defer src="{{ url_for('static', filename='js/esferas.js') }}"></script>
+{% endblock %}
