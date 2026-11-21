@@ -6,7 +6,7 @@ ENV/
 __pycache__/
 *.py[cod]
 .env
-.pdf
+*.pdf
 
 # Arquivos locais e sensíveis do Terraform
 TerraForm/.terraform/
