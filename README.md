@@ -24,7 +24,7 @@ servidor-iago - Nginx
 
 ## Recursos provisionados até agora
 
-O diretório `TerraForm/` contém a infraestrutura AWS criada com Terraform.
+O diretório `InfraEstrutura/` contém a infraestrutura AWS criada com Terraform.
 
 - Uma instância EC2 para o Nginx:
   - Nome: `servidor-iago`
@@ -59,16 +59,16 @@ O diretório `TerraForm/` contém a infraestrutura AWS criada com Terraform.
 
 ### Arquivos principais
 
-- `TerraForm/provider.tf`: provedor AWS e região `us-east-1`.
-- `TerraForm/variable.tf`: variáveis de nomes, região, key pair e tipo de EC2.
-- `TerraForm/main.tf`: AMI Ubuntu, Security Groups e instâncias EC2.
-- `TerraForm/outputs.tf`: IPs públicos, IPs privados e IDs dos Security Groups.
-- `TerraForm/.terraform.lock.hcl`: versões fixadas dos provedores Terraform.
+- `InfraEstrutura/provider.tf`: provedor AWS e região `us-east-1`.
+- `InfraEstrutura/variable.tf`: variáveis de nomes, região, key pair e tipo de EC2.
+- `InfraEstrutura/main.tf`: AMI Ubuntu, Security Groups e instâncias EC2.
+- `InfraEstrutura/outputs.tf`: IPs públicos, IPs privados e IDs dos Security Groups.
+- `InfraEstrutura/.terraform.lock.hcl`: versões fixadas dos provedores Terraform.
 
 ### Comandos utilizados
 
 ```powershell
-cd "C:\Users\Iago Lima\Desktop\GitHub\Projeto_final_DevWeb\TerraForm"
+cd "C:\Users\Iago Lima\Desktop\GitHub\Projeto_final_DevWeb\InfraEstrutura"
 
 terraform init
 terraform fmt
