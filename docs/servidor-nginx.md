@@ -9,12 +9,13 @@ instâncias Flask pelos endereços privados.
 
 Valores verificados em 22/11/2026:
 
-- IP público: `54.84.203.179`
+- IP público (Elastic IP): `34.234.127.148`
 - IP privado: `172.31.31.189`
 - Security Group: `sg-06418aa6f63f150c6`
 
-O IP público pode mudar quando a instância é parada e iniciada. Consulte o
-endereço atual em **EC2 → Instances**.
+O Elastic IP foi associado manualmente e permanece igual enquanto continuar
+associado à instância. Ele não é gerenciado pelo Terraform. Consulte o endereço
+em **EC2 → Instances** se a associação for alterada.
 
 Conexão SSH pelo CMD do Windows:
 

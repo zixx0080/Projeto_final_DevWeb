@@ -89,7 +89,7 @@ comandos AWS CLI e Terraform, não para manter a aplicação rodando.
 
 Endereços verificados em 22/11/2026:
 
-- Nginx público: `54.84.203.179`
+- Nginx público (Elastic IP associado manualmente): `34.234.127.148`
 - Aplicação 1 pública: `54.173.49.64`
 - Aplicação 2 pública: `54.204.110.98`
 - Aplicação 1 privada: `172.31.20.212`
@@ -97,9 +97,11 @@ Endereços verificados em 22/11/2026:
 - MySQL privado: `172.31.26.189`
 - MySQL público atribuído pela subnet: `34.207.152.96`
 
-Esses IPs podem mudar caso os laboratórios sejam reiniciados ou as instâncias
-sejam recriadas. Consulte os endereços atuais em **EC2 → Instances** antes de
-usar os links abaixo.
+O Elastic IP do Nginx permanece igual enquanto estiver associado à instância.
+Os IPs públicos dinâmicos das demais instâncias podem mudar ao parar e iniciar
+as EC2; se uma instância for recriada, seus IPs também podem mudar. Consulte os
+endereços atuais em **EC2 → Instances** antes de usar os links abaixo. O
+Elastic IP foi associado manualmente e não é gerenciado pelo Terraform.
 
 ## Como colocar a aplicação para funcionar
 
