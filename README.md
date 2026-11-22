@@ -106,8 +106,8 @@ sejam recriadas.
 - Concluído: banco `DragonBall` e tabela `pedidos` criados.
 - Concluído: usuário `flask_app` configurado para os IPs privados das duas Apps,
   com privilégios `SELECT` e `INSERT` na tabela `pedidos`.
-- Concluído: conexão testada a partir da App 1.
-- Pendente: testar a conexão a partir da App 2.
+- Concluído: conexão Python–MySQL testada a partir das duas Apps.
+- Concluído: pedido enviado pela URL pública confirmado na tabela MySQL.
 
 ### Tabela atual
 
@@ -126,26 +126,18 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
 
 - Implementado localmente: o formulário existente na página `/esferas` envia o
   pedido à tabela `pedidos` usando consulta parametrizada.
-- App 1: ambiente virtual e dependências instalados; `.env` configurado e
-  conexão Python com MySQL testada.
-- Pendente: sincronizar a versão atual do código e testar o envio pelo
-  formulário `/esferas` na App 1.
-- Pendente: preparar a App 2 e criar nela um `.env` local com as credenciais:
-  - `DB_HOST`
-  - `DB_PORT`
-  - `DB_USER`
-  - `DB_PASSWORD`
-  - `DB_NAME`
+- Concluído: App 1 e App 2 preparadas com ambiente virtual, dependências e
+  `.env` local.
+- Concluído: serviços `systemd` `dragonball-flask.service` habilitados nas
+  duas Apps.
+- Concluído: envio de pedido pela página pública `/esferas` verificado.
 - Pendente: implementar e testar a rota de listagem exigida no PDF.
-- Pendente: executar o Flask nas duas instâncias na porta `5000`.
 
 ### Nginx
 
-- Instalar o Nginx no servidor `servidor-iago`.
-- Configurar o proxy reverso para HTTP.
-- Distribuir as requisições entre `app1-iago` e `app2-iago`.
-- Publicar o acesso pela porta `80`.
-- Fazer o Flask continuar executando após encerrar a sessão SSH.
+- Concluído: Nginx instalado e configurado como proxy reverso na porta `80`.
+- Concluído: tráfego encaminhado às duas Apps pelos IPs privados.
+- Concluído: URL pública `/esferas` respondeu com HTTP `200`.
 
 ## Arquivos da aplicação atual
 
@@ -158,12 +150,12 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
 
 ## Próximas etapas
 
-1. Sincronizar o código atualizado na App 1 e testar o formulário `/esferas`.
-2. Preparar a App 2 e testar sua conexão MySQL.
-3. Implementar a rota de listagem exigida pela atividade.
-4. Instalar e configurar o Nginx no servidor `servidor-iago`.
-5. Testar o acesso público e inserir pelo menos cinco pedidos.
-6. Confirmar os dados no MySQL e preparar as evidências de entrega.
+1. Implementar a rota de listagem exigida pelo PDF sem substituir o formulário
+   existente de Esferas.
+2. Cadastrar pelo menos cinco pedidos pela URL pública.
+3. Confirmar os registros no MySQL.
+4. Verificar que o site continua disponível após fechar as sessões SSH.
+5. Preparar as evidências de entrega.
 
 
 ## Segurança das credenciais
