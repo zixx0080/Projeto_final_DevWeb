@@ -124,18 +124,20 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
 
 ### Aplicações Flask
 
-- Concluído localmente: rotas `/cadastro` e `/listar` implementadas.
-- Concluído localmente: formulário e listagem usam a tabela `pedidos`.
-- Concluído localmente: inserção parametrizada e fechamento das conexões.
-- Pendente: configurar o ambiente Python nas duas instâncias.
-- Pendente: publicar/clonar a versão atual do projeto em ambas.
-- Pendente: criar `.env` local em cada App com as credenciais MySQL:
+- Implementado localmente: o formulário existente na página `/esferas` envia o
+  pedido à tabela `pedidos` usando consulta parametrizada.
+- App 1: ambiente virtual e dependências instalados; `.env` configurado e
+  conexão Python com MySQL testada.
+- Pendente: sincronizar a versão atual do código e testar o envio pelo
+  formulário `/esferas` na App 1.
+- Pendente: preparar a App 2 e criar nela um `.env` local com as credenciais:
   - `DB_HOST`
   - `DB_PORT`
   - `DB_USER`
   - `DB_PASSWORD`
   - `DB_NAME`
-- Pendente: executar o Flask na porta `5000` e verificar as duas rotas na AWS.
+- Pendente: implementar e testar a rota de listagem exigida no PDF.
+- Pendente: executar o Flask nas duas instâncias na porta `5000`.
 
 ### Nginx
 
@@ -156,14 +158,12 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
 
 ## Próximas etapas
 
-1. Testar conexão MySQL a partir da App 2.
-2. Revisar a decisão sobre os campos da tabela conforme o critério do PDF.
-3. Enviar a aplicação atualizada ao GitHub e clonar nas duas Apps.
-4. Criar os arquivos `.env` localmente nas Apps, sem versioná-los.
-5. Executar e testar cadastro e listagem nas instâncias Flask.
-6. Instalar e configurar o Nginx no servidor `servidor-iago`.
-7. Testar o acesso público pelo Nginx e inserir pelo menos cinco pedidos.
-8. Confirmar os dados diretamente no MySQL e preparar as evidências de entrega.
+1. Sincronizar o código atualizado na App 1 e testar o formulário `/esferas`.
+2. Preparar a App 2 e testar sua conexão MySQL.
+3. Implementar a rota de listagem exigida pela atividade.
+4. Instalar e configurar o Nginx no servidor `servidor-iago`.
+5. Testar o acesso público e inserir pelo menos cinco pedidos.
+6. Confirmar os dados no MySQL e preparar as evidências de entrega.
 
 
 ## Segurança das credenciais

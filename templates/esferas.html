@@ -10,7 +10,7 @@
 
 {# Define o conteudo principal da pagina das Esferas do Dragao. #}
 {% block content %}
-    <main class="principal">
+    <main class="principal" data-resultado="{{ resultado }}">
       
       <div class="fundo"> <!-- aqui eu crio meu fundo -->
         <img id="gifShenlong" class="media" src="{{ url_for('static', filename='img/summon-dragon.gif') }}"/>
@@ -25,8 +25,8 @@
       <button id="btnInvocar" type="button" class="btn_invocar">Invocar Shenlong</button>
 
     <div id="formPedido" class="invisivel"> <!-- aqui eu crio a caixa onde meu formulario fica -->
-      <form class="formulario">
-        <input class="campo" id="pedido" name="pedido" placeholder="Me diga seu desejo !"></input>
+      <form class="formulario" method="post" action="{{ url_for('esferas') }}">
+        <input class="campo" id="pedido" name="pedido" placeholder="Me diga seu desejo !" maxlength="255" required />
         <button class="btn_enviar" type="submit">Enviar pedido</button>
       </form>
     </div>

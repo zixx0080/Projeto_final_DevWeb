@@ -9,29 +9,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const gifShenlong = document.getElementById("gifShenlong");
   const videoShenlong = document.getElementById("loopShenlong");
   const formPedido = document.getElementById("formPedido");
-  const pedidoInput = document.getElementById("pedido");
-  const formulario = formPedido.querySelector("form");
 
   // isso so me permiti executar o script se todos os elementos existirem na pagina
   if (!botaoInvocar || !areaPrincipal || !gifShenlong || !videoShenlong || !formPedido) return;
+
+  if (areaPrincipal.dataset.resultado === "ok") {
+    alert("Seu pedido foi registrado no banco!");
+    window.history.replaceState({}, "", window.location.pathname);
+  } else if (areaPrincipal.dataset.resultado === "vazio") {
+    alert("Digite um pedido antes de enviar.");
+  }
 
   // deixa as midias escondidas ate eu iniciar a ação
   gifShenlong.style.display = "none";
   videoShenlong.style.display = "none";
   formPedido.classList.add("invisivel"); // adiciono a classe que deixa meu formulario invisivel
-
-if (formulario) { // se o formulario existir
-  formulario.addEventListener("submit", (evento) => { // oque isso aqui faz é uma otima pergunta
-    evento.preventDefault();
-
-    if (pedidoInput && pedidoInput.value.trim()) {// se o campo existir e tiver algo dentro exceto espaço em branco
-      pedidoInput.value = "";// limpa o campo apos o envio
-      alert("Seu desejo foi realizado!");//envia mensagem
-      window.location.reload();//recarrego a pagina apos clicar no botão
-    }
-  });
-}
-  
 
   botaoInvocar.addEventListener("click", () => { // apos eu clicar...
     areaPrincipal.classList.add("shenlong-ativo"); // usa minha classe CCS do shenlong invocado colocando na minha area principal

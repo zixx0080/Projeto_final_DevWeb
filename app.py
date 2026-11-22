@@ -33,24 +33,12 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/esferas")
+@app.route("/esferas", methods=["GET", "POST"])
 def esferas():
-    return render_template("esferas.html")
-
-
-@app.route("/transformacoes")
-def transformacoes():
-    return render_template("transformacoes.html")
-
-
-@app.route("/cadastro", methods=["GET", "POST"])
-def cadastro():
     if request.method == "POST":
         pedido = request.form.get("pedido", "").strip()
         if not pedido:
-            return render_template(
-                "cadastro.html", erro="Informe o pedido antes de cadastrar."
-            ), 400
+            return render_template("esferas.html", resultado="vazio"), 400
 
         conexao = conector_db()
         try:
@@ -63,22 +51,14 @@ def cadastro():
         finally:
             conexao.close()
 
-        return redirect(url_for("listar"), code=303)
+        return redirect(url_for("esferas", resultado="ok"), code=303)
 
-    return render_template("cadastro.html")
+    return render_template("esferas.html", resultado="")
 
 
-@app.route("/listar")
-def listar():
-    conexao = conector_db()
-    try:
-        with conexao.cursor() as cursor:
-            cursor.execute("SELECT id, pedido FROM pedidos ORDER BY id DESC")
-            pedidos = cursor.fetchall()
-    finally:
-        conexao.close()
-
-    return render_template("listar.html", pedidos=pedidos)
+@app.route("/transformacoes")
+def transformacoes():
+    return render_template("transformacoes.html")
 
 
 if __name__ == "__main__":
