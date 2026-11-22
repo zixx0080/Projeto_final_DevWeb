@@ -82,9 +82,12 @@ terraform apply
 terraform output
 ```
 
+As credenciais temporárias em `C:\Users\Iago Lima\.aws` são necessárias para
+comandos AWS CLI e Terraform, não para manter a aplicação rodando.
+
 ## Estado atual das instâncias
 
-Endereços atuais verificados na AWS:
+Endereços verificados em 22/11/2026:
 
 - Nginx público: `54.84.203.179`
 - Aplicação 1 pública: `54.173.49.64`
@@ -95,9 +98,96 @@ Endereços atuais verificados na AWS:
 - MySQL público atribuído pela subnet: `34.207.152.96`
 
 Esses IPs podem mudar caso os laboratórios sejam reiniciados ou as instâncias
-sejam recriadas.
+sejam recriadas. Consulte os endereços atuais em **EC2 → Instances** antes de
+usar os links abaixo.
 
-## Configuração que ainda será feita
+## Como colocar a aplicação para funcionar
+
+1. Inicie o laboratório no AWS Academy e confirme que ele está ativo.
+2. No console AWS, confirme que as quatro instâncias estão com estado
+   `Running`: `servidor-iago`, `app1-iago`, `app2-iago` e `db-iago`.
+3. Os serviços estão configurados para iniciar automaticamente com o Ubuntu:
+   - Nginx: `nginx`
+   - Aplicações Flask: `dragonball-flask.service` nas duas Apps
+   - MySQL: `mysql`
+4. Acesse a aplicação pelo IP público atual da instância Nginx:
+   - Página de Esferas: `http://IP_PUBLICO_NGINX/esferas`
+   - Listagem JSON: `http://IP_PUBLICO_NGINX/listar`
+
+Para verificar ou iniciar um serviço, conecte-se à instância correspondente e
+use:
+
+```bash
+sudo systemctl status nginx
+sudo systemctl start nginx
+```
+
+Nas instâncias App, use:
+
+```bash
+sudo systemctl status dragonball-flask.service
+sudo systemctl start dragonball-flask.service
+```
+
+Na instância DB, use:
+
+```bash
+sudo systemctl status mysql
+sudo systemctl start mysql
+```
+
+`start` não recria instâncias; apenas inicia o serviço dentro da EC2. As sessões
+SSH podem ser fechadas sem parar serviços gerenciados pelo `systemd`.
+Para conectar por SSH, use o arquivo `DevWeb_final.pem` guardado localmente e
+o IP público atual da instância. A DB é acessada por salto através da App 1;
+veja o comando em [docs/banco-mysql.md](./docs/banco-mysql.md).
+
+### Atualizar o código nas instâncias App
+
+Em cada App:
+
+```bash
+cd ~/Projeto_final_DevWeb
+git pull origin main
+sudo systemctl restart dragonball-flask.service
+```
+
+O arquivo `.env` e a pasta `.venv` são locais e ignorados pelo Git. Não os
+remova nem os publique. O arquivo `.env` de cada App deve conter:
+
+```env
+DB_HOST=IP_PRIVADO_ATUAL_DA_DB
+DB_PORT=3306
+DB_USER=flask_app
+DB_PASSWORD=SENHA_CONFIGURADA_NO_MYSQL
+DB_NAME=DragonBall
+```
+
+Se uma EC2 for parada e iniciada, o IP público pode mudar. Se uma instância for
+recriada, seu IP privado também pode mudar; nesse caso atualize o `.env` das
+Apps, os endereços upstream do Nginx e as contas de acesso do MySQL conforme
+necessário.
+
+### Testes rápidos
+
+No CMD do Windows:
+
+```cmd
+curl.exe -i http://IP_PUBLICO_NGINX/esferas
+curl.exe -i http://IP_PUBLICO_NGINX/listar
+```
+
+O esperado é HTTP `200`; `/listar` responde com `application/json`. Os cinco
+pedidos cadastrados foram confirmados diretamente no MySQL.
+
+## Documentação por instância
+
+- [servidor-iago — Nginx e proxy reverso](./docs/servidor-nginx.md)
+- [app1-iago — aplicação Flask](./docs/app1.md)
+- [app2-iago — aplicação Flask](./docs/app2.md)
+- [db-iago — MySQL](./docs/banco-mysql.md)
+
+## Estado da atividade e pontos de atenção
 
 ### Banco de dados
 
@@ -124,7 +214,7 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
 
 ### Aplicações Flask
 
-- Implementado localmente: o formulário existente na página `/esferas` envia o
+- Implementado: o formulário existente na página `/esferas` envia o
   pedido à tabela `pedidos` usando consulta parametrizada.
 - Concluído: App 1 e App 2 preparadas com ambiente virtual, dependências e
   `.env` local.
@@ -157,24 +247,6 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
 - `requirements.txt`: dependências Python.
 - `.env.example`: modelo das variáveis do banco.
 - `.gitignore`: arquivos e ambientes que não devem ser versionados.
-
-## Próximas etapas
-
-1. Encerrar qualquer sessão SSH ainda aberta e repetir o teste de disponibilidade.
-2. Salvar evidência visual do `SELECT` mostrando os cinco pedidos no MySQL.
-3. Salvar evidência das regras de entrada do Security Group da DB.
-4. Confirmar os links públicos e o repositório para entrega.
-5. Avaliar com o professor se o endpoint JSON atende ao requisito de listagem HTML.
-
-Para testar a resposta pública JSON pelo CMD do Windows:
-
-```cmd
-curl.exe -sS -o NUL -w "HTTP %{http_code} | %{content_type}\n" http://54.84.203.179/listar
-```
-
-O endpoint foi verificado com HTTP `200` e `application/json`. Se o IP público do Nginx mudar,
-substitua-o pelo endereço atual da instância `servidor-iago`.
-
 
 ## Segurança das credenciais
 
