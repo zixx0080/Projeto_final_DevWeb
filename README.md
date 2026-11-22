@@ -131,8 +131,11 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
 - Concluído: serviços `systemd` `dragonball-flask.service` habilitados nas
   duas Apps.
 - Concluído: envio de pedido pela página pública `/esferas` verificado.
-- Implementado localmente: `GET /listar` retorna os pedidos em JSON sem alterar
-  a interface existente.
+- Implementado e publicado: `GET /listar` retorna os pedidos em JSON sem
+  alterar a interface existente.
+- Concluído: código atualizado e serviço reiniciado na App 1.
+- Concluído: App 2 sincronizada com `main`; serviço `systemd` está `active`.
+- Pendente: validar a resposta de `/listar` nas duas Apps e pelo Nginx público.
 - Observação: o PDF pede uma página HTML com tabela; retornar JSON diverge desse
   requisito e pode não atender ao critério de avaliação.
 
@@ -141,6 +144,7 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
 - Concluído: Nginx instalado e configurado como proxy reverso na porta `80`.
 - Concluído: tráfego encaminhado às duas Apps pelos IPs privados.
 - Concluído: URL pública `/esferas` respondeu com HTTP `200`.
+- Pendente: validar a rota pública JSON `/listar`.
 
 ## Arquivos da aplicação atual
 
@@ -153,11 +157,20 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
 
 ## Próximas etapas
 
-1. Atualizar as duas Apps com a rota JSON `/listar` e testá-la.
+1. Validar `/listar` nas duas Apps e pelo Nginx público.
 2. Cadastrar pelo menos cinco pedidos pela URL pública.
 3. Confirmar os registros no MySQL.
 4. Verificar que o site continua disponível após fechar as sessões SSH.
 5. Preparar as evidências de entrega.
+
+Para testar a resposta pública JSON pelo CMD do Windows:
+
+```cmd
+curl.exe -sS -o NUL -w "HTTP %{http_code} | %{content_type}\n" http://54.84.203.179/listar
+```
+
+O esperado é HTTP `200` e `application/json`. Se o IP público do Nginx mudar,
+substitua-o pelo endereço atual da instância `servidor-iago`.
 
 
 ## Segurança das credenciais
