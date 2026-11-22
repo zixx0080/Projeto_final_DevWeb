@@ -68,6 +68,7 @@ O diretório `InfraEstrutura/` contém a infraestrutura AWS criada com Terraform
 - `InfraEstrutura/main.tf`: AMI Ubuntu, Security Groups e instâncias EC2.
 - `InfraEstrutura/outputs.tf`: IPs públicos, IPs privados e IDs dos Security Groups.
 - `InfraEstrutura/.terraform.lock.hcl`: versões fixadas dos provedores Terraform.
+- Documentação detalhada: [InfraEstrutura/docs/README.md](./InfraEstrutura/docs/README.md)
 
 ### Comandos utilizados
 
@@ -87,15 +88,12 @@ comandos AWS CLI e Terraform, não para manter a aplicação rodando.
 
 ## Estado atual das instâncias
 
-Endereços verificados em 22/11/2026:
+Os endereços atuais não são armazenados neste repositório por segurança e
+podem mudar entre execuções das instâncias. Consulte os IPs em:
 
-- Nginx público (Elastic IP associado manualmente): `34.234.127.148`
-- Aplicação 1 pública: `54.173.49.64`
-- Aplicação 2 pública: `54.204.110.98`
-- Aplicação 1 privada: `172.31.20.212`
-- Aplicação 2 privada: `172.31.21.39`
-- MySQL privado: `172.31.26.189`
-- MySQL público atribuído pela subnet: `34.207.152.96`
+- `terraform output`, dentro da pasta `InfraEstrutura`;
+- AWS Console > EC2 > Instances;
+- AWS Console > EC2 > Elastic IPs, para o endereço associado ao Nginx.
 
 O Elastic IP do Nginx permanece igual enquanto estiver associado à instância.
 Os IPs públicos dinâmicos das demais instâncias podem mudar ao parar e iniciar
