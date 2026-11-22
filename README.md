@@ -14,7 +14,7 @@ Usuário
 servidor-iago - Nginx
    |
    +--> app1-iago - Flask - porta 5000
-   |
+   |           |
    +--> app2-iago - Flask - porta 5000
                |
                | Rede privada - porta 3306
@@ -39,7 +39,7 @@ O diretório `InfraEstrutura/` contém a infraestrutura AWS criada com Terraform
   - Nome: `db-iago`
   - Função: armazenar os dados
   - Porta MySQL: `3306`
-  - Sem IP público
+  - Comunicação do MySQL restrita ao Security Group das aplicações
 
 ## Segurança configurada
 
@@ -49,7 +49,11 @@ O diretório `InfraEstrutura/` contém a infraestrutura AWS criada com Terraform
   do Security Group do Nginx.
 - O Security Group do MySQL permite a porta `3306` somente a partir do
   Security Group das aplicações Flask.
-- A instância do MySQL não possui IP público.
+- A porta SSH `22` da instância MySQL também aceita conexões somente a partir
+  do Security Group das aplicações Flask; o acesso administrativo é feito por
+  meio de uma instância App.
+- A subnet padrão do laboratório atribui IP público à DB, mas as portas `22` e
+  `3306` não aceitam conexões vindas da internet.
 - A comunicação entre aplicação e banco deve utilizar o IP privado da DB.
 - A porta `3306` não pode ser aberta para `0.0.0.0/0`.
 - As credenciais AWS não são armazenadas nos arquivos Terraform.
@@ -80,12 +84,15 @@ terraform output
 
 ## Estado atual das instâncias
 
-Os valores atuais obtidos pelo Terraform foram:
+Endereços atuais verificados na AWS:
 
-- Nginx público: `34.228.111.237`
+- Nginx público: `54.84.203.179`
+- Aplicação 1 pública: `54.173.49.64`
+- Aplicação 2 pública: `54.204.110.98`
 - Aplicação 1 privada: `172.31.20.212`
 - Aplicação 2 privada: `172.31.21.39`
-- MySQL privado: `172.31.19.40`
+- MySQL privado: `172.31.26.189`
+- MySQL público atribuído pela subnet: `34.207.152.96`
 
 Esses IPs podem mudar caso os laboratórios sejam reiniciados ou as instâncias
 sejam recriadas.

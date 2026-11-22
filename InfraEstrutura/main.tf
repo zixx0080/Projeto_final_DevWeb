@@ -104,11 +104,11 @@ resource "aws_security_group" "db" {
   }
 
   ingress {
-    description = "Acesso SSH a instancia MySQL"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [var.ssh_cidr]
+    description     = "Acesso SSH a instancia MySQL somente pelas instancias Flask"
+    from_port       = 22
+    to_port         = 22
+    protocol        = "tcp"
+    security_groups = [aws_security_group.app.id]
   }
 
   egress {
@@ -159,8 +159,8 @@ resource "aws_instance" "db" {
   instance_type          = var.instance_type
   key_name               = var.key_pair_name
   vpc_security_group_ids = [aws_security_group.db.id]
-  // O banco não precisa de IP público e só será acessado pelas aplicações.
-  associate_public_ip_address = false
+  // A subnet padrão atribui IP público; o Security Group limita o acesso.
+  associate_public_ip_address = true
 
   tags = {
     Name = var.db_name
