@@ -135,7 +135,8 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
   alterar a interface existente.
 - Concluído: código atualizado e serviço reiniciado na App 1.
 - Concluído: App 2 sincronizada com `main`; serviço `systemd` está `active`.
-- Pendente: validar a resposta de `/listar` nas duas Apps e pelo Nginx público.
+- Concluído: `/listar` respondeu HTTP `200` com `application/json` pelo Nginx.
+- Concluído: cinco pedidos enviados pela página pública e confirmados no MySQL.
 - Observação: o PDF pede uma página HTML com tabela; retornar JSON diverge desse
   requisito e pode não atender ao critério de avaliação.
 
@@ -144,7 +145,7 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
 - Concluído: Nginx instalado e configurado como proxy reverso na porta `80`.
 - Concluído: tráfego encaminhado às duas Apps pelos IPs privados.
 - Concluído: URL pública `/esferas` respondeu com HTTP `200`.
-- Pendente: validar a rota pública JSON `/listar`.
+- Concluído: rota pública `/listar` respondeu HTTP `200` como JSON.
 
 ## Arquivos da aplicação atual
 
@@ -157,11 +158,11 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
 
 ## Próximas etapas
 
-1. Validar `/listar` nas duas Apps e pelo Nginx público.
-2. Cadastrar pelo menos cinco pedidos pela URL pública.
-3. Confirmar os registros no MySQL.
-4. Verificar que o site continua disponível após fechar as sessões SSH.
-5. Preparar as evidências de entrega.
+1. Verificar que o site continua disponível após fechar todas as sessões SSH.
+2. Salvar evidência visual do `SELECT` mostrando os cinco pedidos no MySQL.
+3. Salvar evidência das regras de entrada do Security Group da DB.
+4. Confirmar os links públicos e o repositório para entrega.
+5. Avaliar com o professor se o endpoint JSON atende ao requisito de listagem HTML.
 
 Para testar a resposta pública JSON pelo CMD do Windows:
 
@@ -169,7 +170,7 @@ Para testar a resposta pública JSON pelo CMD do Windows:
 curl.exe -sS -o NUL -w "HTTP %{http_code} | %{content_type}\n" http://54.84.203.179/listar
 ```
 
-O esperado é HTTP `200` e `application/json`. Se o IP público do Nginx mudar,
+O endpoint foi verificado com HTTP `200` e `application/json`. Se o IP público do Nginx mudar,
 substitua-o pelo endereço atual da instância `servidor-iago`.
 
 
