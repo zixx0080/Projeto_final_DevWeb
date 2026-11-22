@@ -101,32 +101,41 @@ sejam recriadas.
 
 ### Banco de dados
 
-- Atualizar os pacotes da instância `db-iago`.
-- Instalar e iniciar o MySQL.
-- Configurar o MySQL para aceitar conexões na rede privada.
-- Criar o banco da aplicação.
-- Criar um usuário específico para o Flask.
-- Conceder ao usuário privilégios somente sobre o banco da aplicação.
-- Criar uma tabela com chave primária e pelo menos três campos.
-- Testar a conexão a partir das duas instâncias Flask.
+- Concluído: MySQL instalado e ativo na instância `db-iago`.
+- Concluído: MySQL configurado para aceitar conexões no IP privado da DB.
+- Concluído: banco `DragonBall` e tabela `pedidos` criados.
+- Concluído: usuário `flask_app` configurado para os IPs privados das duas Apps,
+  com privilégios `SELECT` e `INSERT` na tabela `pedidos`.
+- Concluído: conexão testada a partir da App 1.
+- Pendente: testar a conexão a partir da App 2.
+
+### Tabela atual
+
+A tabela `DragonBall.pedidos` contém:
+
+| Coluna | Tipo | Descrição |
+| --- | --- | --- |
+| `id` | `INT` | Chave primária, incremento automático |
+| `pedido` | `VARCHAR(255)` | Texto do pedido |
+
+Esta tabela tem somente uma coluna além da chave primária. O enunciado da
+atividade pede uma chave primária e três campos; a estrutura atual foi mantida
+conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliação.
 
 ### Aplicações Flask
 
-- Configurar o ambiente Python nas duas instâncias `app1-iago` e `app2-iago`.
-- Clonar o projeto em ambas.
-- Criar e ativar um ambiente virtual.
-- Instalar as dependências do `requirements.txt`.
-- Configurar as credenciais MySQL em um arquivo `.env`:
+- Concluído localmente: rotas `/cadastro` e `/listar` implementadas.
+- Concluído localmente: formulário e listagem usam a tabela `pedidos`.
+- Concluído localmente: inserção parametrizada e fechamento das conexões.
+- Pendente: configurar o ambiente Python nas duas instâncias.
+- Pendente: publicar/clonar a versão atual do projeto em ambas.
+- Pendente: criar `.env` local em cada App com as credenciais MySQL:
   - `DB_HOST`
   - `DB_PORT`
   - `DB_USER`
   - `DB_PASSWORD`
   - `DB_NAME`
-- Criar as rotas `/cadastro` e `/listar`.
-- Utilizar consultas parametrizadas para evitar SQL Injection.
-- Implementar um formulário que herde `base.html`.
-- Exibir os registros em uma página HTML.
-- Executar o Flask na porta `5000`.
+- Pendente: executar o Flask na porta `5000` e verificar as duas rotas na AWS.
 
 ### Nginx
 
@@ -145,17 +154,17 @@ sejam recriadas.
 - `.env.example`: modelo das variáveis do banco.
 - `.gitignore`: arquivos e ambientes que não devem ser versionados.
 
-## Próxima etapa
+## Próximas etapas
 
-Preparar as instâncias por meio de scripts ou SSH manual para:
+1. Testar conexão MySQL a partir da App 2.
+2. Revisar a decisão sobre os campos da tabela conforme o critério do PDF.
+3. Enviar a aplicação atualizada ao GitHub e clonar nas duas Apps.
+4. Criar os arquivos `.env` localmente nas Apps, sem versioná-los.
+5. Executar e testar cadastro e listagem nas instâncias Flask.
+6. Instalar e configurar o Nginx no servidor `servidor-iago`.
+7. Testar o acesso público pelo Nginx e inserir pelo menos cinco pedidos.
+8. Confirmar os dados diretamente no MySQL e preparar as evidências de entrega.
 
-1. Instalar o MySQL na DB.
-2. Criar banco, usuário e tabela.
-3. Instalar Flask nas duas Apps.
-4. Configurar o `.env` em cada App.
-5. Configurar e iniciar o Nginx.
-6. Testar cadastro e listagem.
-7. Confirmar registros diretamente no MySQL.
 
 ## Segurança das credenciais
 

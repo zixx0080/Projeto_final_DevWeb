@@ -1,32 +1,85 @@
+import os
+
 import pymysql
-from flask import Flask, render_template
+from dotenv import load_dotenv
+from flask import Flask, redirect, render_template, request, url_for
+
+load_dotenv()
 
 app = Flask(__name__)
 
-# Cria uma conexao com o banco de dados; este bloco nao chama uma pagina.
+
 def conector_db():
-    return pymysql.connect (
-        host='localhost',
-        user='root',
-        password='sua_senha',
-        port='3306',
-        database='escola',
+    variaveis_obrigatorias = ("DB_HOST", "DB_USER", "DB_PASSWORD", "DB_NAME")
+    faltantes = [nome for nome in variaveis_obrigatorias if not os.getenv(nome)]
+    if faltantes:
+        raise RuntimeError(
+            "Configure as variáveis no arquivo .env: " + ", ".join(faltantes)
+        )
+
+    return pymysql.connect(
+        host=os.environ["DB_HOST"],
+        user=os.environ["DB_USER"],
+        password=os.environ["DB_PASSWORD"],
+        port=int(os.getenv("DB_PORT", "3306")),
+        database=os.environ["DB_NAME"],
         cursorclass=pymysql.cursors.DictCursor,
-        connect_timeout=5
+        connect_timeout=5,
     )
+
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
+
 @app.route("/esferas")
 def esferas():
     return render_template("esferas.html")
+
 
 @app.route("/transformacoes")
 def transformacoes():
     return render_template("transformacoes.html")
 
-# Inicia o servidor Flask quando este arquivo e executado diretamente.
+
+@app.route("/cadastro", methods=["GET", "POST"])
+def cadastro():
+    if request.method == "POST":
+        pedido = request.form.get("pedido", "").strip()
+        if not pedido:
+            return render_template(
+                "cadastro.html", erro="Informe o pedido antes de cadastrar."
+            ), 400
+
+        conexao = conector_db()
+        try:
+            with conexao.cursor() as cursor:
+                cursor.execute(
+                    "INSERT INTO pedidos (pedido) VALUES (%s)",
+                    (pedido,),
+                )
+            conexao.commit()
+        finally:
+            conexao.close()
+
+        return redirect(url_for("listar"), code=303)
+
+    return render_template("cadastro.html")
+
+
+@app.route("/listar")
+def listar():
+    conexao = conector_db()
+    try:
+        with conexao.cursor() as cursor:
+            cursor.execute("SELECT id, pedido FROM pedidos ORDER BY id DESC")
+            pedidos = cursor.fetchall()
+    finally:
+        conexao.close()
+
+    return render_template("listar.html", pedidos=pedidos)
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)
