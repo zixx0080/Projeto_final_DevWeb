@@ -95,11 +95,11 @@ podem mudar entre execuções das instâncias. Consulte os IPs em:
 - AWS Console > EC2 > Instances;
 - AWS Console > EC2 > Elastic IPs, para o endereço associado ao Nginx.
 
-O Elastic IP do Nginx permanece igual enquanto estiver associado à instância.
-Os IPs públicos dinâmicos das demais instâncias podem mudar ao parar e iniciar
-as EC2; se uma instância for recriada, seus IPs também podem mudar. Consulte os
-endereços atuais em **EC2 → Instances** antes de usar os links abaixo. O
-Elastic IP foi associado manualmente e não é gerenciado pelo Terraform.
+O Elastic IP do Nginx é gerenciado pela associação Terraform
+`aws_eip_association.nginx` e permanece associado à instância. Os IPs públicos
+dinâmicos das demais instâncias podem mudar ao parar e iniciar as EC2; se uma
+instância for recriada, seus IPs também podem mudar. Consulte os endereços
+atuais em **EC2 → Instances** antes de usar os links abaixo.
 
 ## Como colocar a aplicação para funcionar
 

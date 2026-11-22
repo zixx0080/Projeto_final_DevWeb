@@ -15,6 +15,7 @@ O arquivo `variable.tf` centraliza valores parametrizáveis da infraestrutura.
 | `instance_type` | `t3.micro` | Tipo das instâncias EC2 |
 | `app_count` | `2` | Quantidade de instâncias Flask |
 | `ssh_cidr` | `0.0.0.0/0` | Rede autorizada a usar SSH nas EC2 |
+| `nginx_elastic_ip_allocation_id` | ID configurado do Elastic IP | Allocation ID associado ao Nginx |
 
 ## Validações
 

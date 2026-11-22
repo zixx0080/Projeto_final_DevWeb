@@ -13,7 +13,7 @@ pelos recursos AWS.
 
 ### `nginx_public_ip`
 
-Retorna o IP público da instância Nginx.
+Retorna o IP público fixo associado ao Elastic IP do Nginx.
 
 Usado para acessar a aplicação pelas rotas HTTP públicas.
 

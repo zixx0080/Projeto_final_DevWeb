@@ -72,3 +72,15 @@ variable "ssh_cidr" {
     error_message = "ssh_cidr deve ser um CIDR válido, como 203.0.113.10/32."
   }
 }
+
+// Allocation ID do Elastic IP já criado e associado ao laboratório.
+variable "nginx_elastic_ip_allocation_id" {
+  description = "Allocation ID do Elastic IP associado ao servidor Nginx"
+  type        = string
+  default     = "eipalloc-06078a6ff8710c5bf"
+
+  validation {
+    condition     = can(regex("^eipalloc-[0-9a-f]+$", var.nginx_elastic_ip_allocation_id))
+    error_message = "nginx_elastic_ip_allocation_id deve ter o formato eipalloc-..."
+  }
+}

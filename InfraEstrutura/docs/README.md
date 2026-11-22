@@ -23,7 +23,7 @@ Não são gerados pelo Terraform:
 - a instalação do Nginx, Flask ou MySQL;
 - os arquivos de aplicação e o ambiente virtual;
 - o banco `DragonBall`, o usuário `flask_app` e as tabelas;
-- o Elastic IP associado ao Nginx;
+- a criação do Elastic IP associado ao Nginx;
 - o vínculo entre a aplicação e o banco por meio do arquivo `.env`.
 
 Essas etapas são configuradas manualmente nas EC2 depois da criação.

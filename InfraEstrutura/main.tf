@@ -138,6 +138,12 @@ resource "aws_instance" "nginx" {
   }
 }
 
+// Mantém o Elastic IP associado à instância do Nginx.
+resource "aws_eip_association" "nginx" {
+  instance_id   = aws_instance.nginx.id
+  allocation_id = var.nginx_elastic_ip_allocation_id
+}
+
 // Duas instâncias Flask. O índice 0 cria app1 e o índice 1 cria app2.
 resource "aws_instance" "app" {
   count                       = var.app_count

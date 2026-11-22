@@ -64,6 +64,15 @@ O recurso `aws_instance.nginx` cria `servidor-iago` com:
 
 O Elastic IP não é criado ou associado por este arquivo.
 
+## Elastic IP do Nginx
+
+O recurso `aws_eip_association.nginx` associa o Elastic IP informado pela
+variável `nginx_elastic_ip_allocation_id` à instância `servidor-iago`.
+
+O Elastic IP não é criado pelo Terraform nesta configuração, pois o endereço
+já existe no laboratório. A associação passa a ser gerenciada pelo Terraform,
+evitando que o endereço seja perdido ou desvinculado durante recriações.
+
 ## Instâncias Flask
 
 O recurso `aws_instance.app` usa `count = 2` e cria:

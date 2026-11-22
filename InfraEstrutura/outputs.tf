@@ -1,7 +1,7 @@
-// Endereço público do servidor Nginx.
+// Endereço público fixo do servidor Nginx.
 output "nginx_public_ip" {
-  description = "IP público usado para acessar a aplicação pelo Nginx"
-  value       = aws_instance.nginx.public_ip
+  description = "IP público estável usado para acessar a aplicação pelo Nginx"
+  value       = aws_eip_association.nginx.public_ip
 }
 
 // Endereços públicos das duas instâncias Flask.
