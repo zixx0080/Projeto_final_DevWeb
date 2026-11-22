@@ -146,6 +146,8 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
 - Concluído: tráfego encaminhado às duas Apps pelos IPs privados.
 - Concluído: URL pública `/esferas` respondeu com HTTP `200`.
 - Concluído: rota pública `/listar` respondeu HTTP `200` como JSON.
+- Concluído: rota pública continuou respondendo HTTP `200` após encerrar a
+  sessão SSH do Nginx.
 
 ## Arquivos da aplicação atual
 
@@ -158,7 +160,7 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
 
 ## Próximas etapas
 
-1. Verificar que o site continua disponível após fechar todas as sessões SSH.
+1. Encerrar qualquer sessão SSH ainda aberta e repetir o teste de disponibilidade.
 2. Salvar evidência visual do `SELECT` mostrando os cinco pedidos no MySQL.
 3. Salvar evidência das regras de entrada do Security Group da DB.
 4. Confirmar os links públicos e o repositório para entrega.
