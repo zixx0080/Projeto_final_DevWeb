@@ -2,7 +2,7 @@ import os
 
 import pymysql
 from dotenv import load_dotenv
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, jsonify, redirect, render_template, request, url_for
 
 load_dotenv()
 
@@ -59,6 +59,19 @@ def esferas():
 @app.route("/transformacoes")
 def transformacoes():
     return render_template("transformacoes.html")
+
+
+@app.route("/listar")
+def listar():
+    conexao = conector_db()
+    try:
+        with conexao.cursor() as cursor:
+            cursor.execute("SELECT id, pedido FROM pedidos ORDER BY id DESC")
+            pedidos = cursor.fetchall()
+    finally:
+        conexao.close()
+
+    return jsonify(pedidos)
 
 
 if __name__ == "__main__":

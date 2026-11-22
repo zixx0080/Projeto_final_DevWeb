@@ -131,7 +131,10 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
 - Concluído: serviços `systemd` `dragonball-flask.service` habilitados nas
   duas Apps.
 - Concluído: envio de pedido pela página pública `/esferas` verificado.
-- Pendente: implementar e testar a rota de listagem exigida no PDF.
+- Implementado localmente: `GET /listar` retorna os pedidos em JSON sem alterar
+  a interface existente.
+- Observação: o PDF pede uma página HTML com tabela; retornar JSON diverge desse
+  requisito e pode não atender ao critério de avaliação.
 
 ### Nginx
 
@@ -150,8 +153,7 @@ conforme a decisão do projeto, mas pode não cumprir esse requisito de avaliaç
 
 ## Próximas etapas
 
-1. Implementar a rota de listagem exigida pelo PDF sem substituir o formulário
-   existente de Esferas.
+1. Atualizar as duas Apps com a rota JSON `/listar` e testá-la.
 2. Cadastrar pelo menos cinco pedidos pela URL pública.
 3. Confirmar os registros no MySQL.
 4. Verificar que o site continua disponível após fechar as sessões SSH.
